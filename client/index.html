@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Module Loading</title>
+    <script type="module">
+        async function loadModules(moduleUrls) {
+            console.log("Starting to load modules:", moduleUrls);
+            const modules = await Promise.all(moduleUrls.map(url => import(url)));
+            modules.forEach((module, index) => {
+                console.log(`Module ${index} loaded:`, module);
+                // You can now use the module's exports
+                if(module.init) {
+                    module.init();
+                }
+            });
+        }
+
+        // Example: List of module URLs
+        const moduleUrls = [
+            'http://localhost:3030/modules/module1.js',
+            'http://localhost:3030/modules/module2.js'
+
+        ];
+
+        loadModules(moduleUrls).catch(error => console.log('Error loading modules:', error));
+    </script>
+</head>
+<body>
+    <h1>Dynamic Module Loading Example</h1>
+</body>
+</html>
