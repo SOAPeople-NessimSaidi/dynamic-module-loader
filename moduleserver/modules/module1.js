@@ -1,7 +1,12 @@
-export function init() {
+function init() {
     console.log('Module 1 initialized');
 }
 
-export function hello() {
+function hello() {
     console.log('Hello from module1!');
+}
+
+module.exports = {
+    init,
+    hello
 }
